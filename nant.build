@@ -4,6 +4,8 @@
   <property name="dist.dir" value="release" />
   <property name="tools.dir" value="Tools" />
   <property name="lib.dir" value="Dependencies" />
+  <property name="package.dir" value="package" />
+  <property name="project.name" value="Restfulie.Server" />
 
   <property name="nant.settings.currentframework" value="net-3.5" />
   
@@ -11,9 +13,8 @@
   <property name="project.fullversion" value="${build.number}" if="${property::exists('build.number')}"/>
   <property name="config" value="Release" />
 
-  <target name="test" depends="compile, run-unit-tests"
-  description="Compile and Run Tests" />
-  
+  <target name="test" depends="compile, run-unit-tests"  description="Compile and Run Tests" />
+    
 
   <!-- User targets -->
   <target name="clean" description="Delete Automated Build artifacts">
@@ -28,7 +29,7 @@
   </target>
 
   
-   <!-- Internal targets -->
+  <!-- Internal targets -->
   <target name="run-unit-tests">
     <mkdir dir="${build.dir}\results" />
     <nunit2 failonerror="true" verbose="true">
@@ -37,27 +38,27 @@
       <test assemblyname="${build.dir}/${config}/Restfulie.Server.Tests/Restfulie.Server.Tests.dll"/>
     </nunit2>    
   </target>  
+  
 
-  <!--
-  <target name="post-compile">
+  <target name="package" depends="test">
 
-    <delete dir="${build.dir}" failonerror="false" />
-    <mkdir dir="${build.dir}" />
+    <delete dir="${package.dir}" failonerror="false" />
+    <mkdir dir="${package.dir}" />
 
-    <copy todir="${build.dir}" flatten="true" overwrite="true">
-      <fileset basedir="Restfulie.Server\bin\${config}">
-        <include name="Restfulie.Server.dll" />
-        <include name="Castle.Core.dll" />
-        <include name="Castle.DynamicProxy2.dll" />
-      </fileset>
-	  <fileset basedir="Restfulie.Server.Tests\bin\${config}">
-        <include name="Restfulie.Server.Tests.dll" />
-        <include name="Moq.dll" />
-        <include name="nunit.core.dll" />
-        <include name="nunit.core.interfaces.dll" />
-        <include name="nunit.framework.dll" />
-      </fileset>	  
-    </copy>    
-  </target>-->
+    <copy todir="${package.dir}" flatten="true" overwrite="true">
+      <fileset basedir="${build.dir}/${dist.dir}/${project.name}">
+        <include name="*.dll" />
+      </fileset>  
+	</copy>
+	
+	<copy todir="${package.dir}" flatten="true" overwrite="true">
+		<fileset>
+			<include name="restfulie.net.nuspec" />
+		</fileset>
+	</copy>
+	
+	<exec program="Tools\nuget\NuGet.exe" commandline="pack restfulie.net.nuspec" workingdir="${package.dir}" />
+
+  </target>
 </project>
 
