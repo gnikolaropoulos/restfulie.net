@@ -3,5 +3,7 @@
     public interface IBehaveAsResource
     {
         void SetRelations(Relations relations);
+
+    	string GetEtag();
     }
 }

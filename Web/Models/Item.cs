@@ -1,4 +1,5 @@
-﻿using Restfulie.Server;
+﻿using System;
+using Restfulie.Server;
 using Web.Controllers;
 
 namespace Web.Models
@@ -14,5 +15,10 @@ namespace Web.Models
             relations.Named("self").Uses<ItemsController>().Get(Id);
             relations.Named("origin").At("http://www.some-fabric.com/");
         }
+
+    	public string GetEtag()
+    	{
+    		throw new NotImplementedException();
+    	}
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Restfulie.Server.Tests.Fixtures
 {
@@ -14,5 +16,19 @@ namespace Restfulie.Server.Tests.Fixtures
         {
             relations.Named("pay").Uses<SomeController>().SomeSimpleAction();
         }
+
+    	public string GetEtag()
+    	{
+    		string value = Name + Amount + Id + UpdatedAt.ToString("yyyyMMddhhmmss");
+    		var byteArray = Encoding.UTF8.GetBytes(value);
+			var prov = new MD5CryptoServiceProvider();
+    		var hash = prov.ComputeHash(byteArray);
+    		var result = new StringBuilder();
+    		foreach (var b in hash)
+    		{
+    			result.Append(b.ToString("X2"));
+    		}
+    		return result.ToString();
+    	}
     }
 }
