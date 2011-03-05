@@ -4,7 +4,8 @@
   <property name="dist.dir" value="release" />
   <property name="tools.dir" value="Tools" />
   <property name="lib.dir" value="Dependencies" />
-  <property name="package.dir" value="package" />
+  <property name="source.dir" value="." />
+  <property name="package.dir" value="RestfuliePackage" />
   <property name="project.name" value="Restfulie.Server" />
 
   <property name="nant.settings.currentframework" value="net-3.5" />
@@ -45,7 +46,7 @@
     <delete dir="${package.dir}" failonerror="false" />
     <mkdir dir="${package.dir}" />
 
-    <copy todir="${package.dir}" flatten="true" overwrite="true">
+    <copy todir="${package.dir}/lib" flatten="true" overwrite="true">
       <fileset basedir="${build.dir}/${dist.dir}/${project.name}">
         <include name="*.dll" />
       </fileset>  
