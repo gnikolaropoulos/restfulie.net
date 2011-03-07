@@ -109,13 +109,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActAsRestfulieTests.cs" />
+    <Compile Include="Cache\CachingTest.cs" />
     <Compile Include="Configuration\RestfulieConfigurationTests.cs" />
     <Compile Include="Extensions\ActionResultExtensionsTests.cs" />
     <Compile Include="Extensions\DateTimeExtensionsTests.cs" />
     <Compile Include="Extensions\ObjectExtensionsTests.cs" />
     <Compile Include="Extensions\TypeExtensionsTests.cs" />
+    <Compile Include="Fixtures\SomeCacheableResource.cs" />
     <Compile Include="Fixtures\SomeResult.cs" />
     <Compile Include="Fixtures\SomeResultDecorator.cs" />
+    <Compile Include="Foo.cs" />
+    <Compile Include="IntegrationTestBase.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlHypermediaInjectorTests.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlSerializerTests.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\FeedTests.cs" />
@@ -139,6 +143,7 @@
     <Compile Include="Results\Decorators\ContentTests.cs" />
     <Compile Include="Results\Decorators\ContentTypeTests.cs" />
     <Compile Include="Results\Decorators\ETagDecoratorTests.cs" />
+    <Compile Include="Results\Decorators\LastModifiedDecoratorTests.cs" />
     <Compile Include="Results\Decorators\LocationTests.cs" />
     <Compile Include="Results\Decorators\StatusCodeTests.cs" />
     <Compile Include="RelationsTests.cs" />
@@ -163,6 +168,10 @@
     <ProjectReference Include="..\Restfulie.Server\Restfulie.Server.csproj">
       <Project>{94F2996B-1DC4-4C6B-9612-E16B61375B92}</Project>
       <Name>Restfulie.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Web\Web.csproj">
+      <Project>{5CDAB2A7-3BDF-4AB3-BCBB-CA0D3D84A381}</Project>
+      <Name>Web</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

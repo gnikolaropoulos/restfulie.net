@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using Restfulie.Server.Tests.Fixtures;
 using Restfulie.Server.Extensions;
+using Should;
 
 namespace Restfulie.Server.Tests.Extensions
 {
@@ -16,8 +17,8 @@ namespace Restfulie.Server.Tests.Extensions
 
             var array = list.AsResourceArray();
 
-            Assert.AreEqual(1, array.Length);
-            Assert.AreEqual(resource, array[0]);
+        	array.Length.ShouldEqual(1);
+        	array[0].ShouldEqual(resource);
         }
 
         [Test]
@@ -25,8 +26,8 @@ namespace Restfulie.Server.Tests.Extensions
         {
             var resource = new SomeResource { Id = 123 };
 
-            Assert.AreEqual(123, resource.GetProperty("Id"));
-            Assert.IsNull(resource.GetProperty("CrazyProperty"));
+			resource.GetProperty("Id").ShouldEqual(123);
+			resource.GetProperty("CrazyProperty").ShouldBeNull();
         }
     }
 }

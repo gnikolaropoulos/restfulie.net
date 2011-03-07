@@ -10,6 +10,12 @@ namespace Restfulie.Server.Extensions
                    type.GetInterface(typeof(IBehaveAsResource).FullName) != null;
         }
 
+		public static bool IsCacheableResource(this Type type)
+		{
+			return type == typeof(IBehaveAsCacheableResource) ||
+				   type.GetInterface(typeof(IBehaveAsCacheableResource).FullName) != null;
+		}
+
         public static bool IsAListOfResources(this Type type)
         {
             if(type.IsArray && type.GetElementType().IsAResource()) return true;

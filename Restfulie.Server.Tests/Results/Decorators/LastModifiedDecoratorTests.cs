@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Web;
-using System.Web.Caching;
 using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
 using Restfulie.Server.Results.Decorators;
 using Restfulie.Server.Tests.Fixtures;
-using Should;
 
 namespace Restfulie.Server.Tests.Results.Decorators
 {
 	[TestFixture]
-	public class ETagDecoratorTests
+	public class LastModifiedDecoratorTests
 	{
 		private Mock<ControllerContext> context;
 		private Mock<HttpContextBase> httpContext;
@@ -43,19 +41,19 @@ namespace Restfulie.Server.Tests.Results.Decorators
 		}
 
 		[Test]
-		public void ShouldSetETag()
+		public void ShouldSetLastModified()
 		{
-			new ETag(someResource).Execute(context.Object);
+			new LastModified(someResource).Execute(context.Object);
 
-			cache.Verify(c => c.SetETag(someResource.GetEtag()));
+			cache.Verify(c => c.SetLastModified(someResource.GetLastModified()));
 		}
 
 		[Test]
-		public void ShouldNotSetETagWhenIsNotAResource()
+		public void ShouldNotSetLastModifiedWhenIsNotAResource()
 		{
 			var notAResource = new NonResourceEntity();
-			new ETag(notAResource).Execute(context.Object);
-			cache.Verify(c => c.SetETag(notAResource.GetETag()),Times.Never());
+			new LastModified(notAResource).Execute(context.Object);
+			cache.Verify(c => c.SetLastModified(notAResource.GetLastModified()), Times.Never());
 		}
 
 		[Test]
@@ -63,16 +61,16 @@ namespace Restfulie.Server.Tests.Results.Decorators
 		{
 			var nextDecorator = new Mock<ResultDecorator>();
 
-			new ETag(someResource,nextDecorator.Object).Execute(context.Object);
+			new LastModified(someResource, nextDecorator.Object).Execute(context.Object);
 
 			nextDecorator.Verify(nd => nd.Execute(context.Object));
 		}
 
 		class NonResourceEntity
 		{
-			public string GetETag()
+			public DateTime GetLastModified()
 			{
-				return "foo";
+				return DateTime.MinValue;
 			}
 		}
 	}

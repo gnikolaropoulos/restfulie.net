@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using Restfulie.Server.Extensions;
 using Restfulie.Server.Tests.Fixtures;
+using Should;
 
 namespace Restfulie.Server.Tests.Extensions
 {
@@ -11,9 +12,16 @@ namespace Restfulie.Server.Tests.Extensions
         [Test]
         public void ShouldKnowIfATypeIsAResource()
         {
-            Assert.IsTrue(new SomeResource().GetType().IsAResource());
-            Assert.IsFalse(123.GetType().IsAResource());
+            new SomeResource().GetType().IsAResource().ShouldBeTrue();
+            123.GetType().IsAResource().ShouldBeFalse();
         }
+
+		[Test]
+		public void ShouldKnowIfATypeIsACacheableResource()
+		{
+			new SomeCacheableResource().GetType().IsCacheableResource().ShouldBeTrue();
+			new SomeResource().GetType().IsCacheableResource().ShouldBeFalse();
+		}
 
         [Test]
         public void SholdKnowIfATypeIsAListOfResources()
@@ -24,11 +32,11 @@ namespace Restfulie.Server.Tests.Extensions
             var notAResourceList = new List<int>();
             var notAResourceArray = new[] {1, 2};
 
-            Assert.IsTrue(list.GetType().IsAListOfResources());
-            Assert.IsTrue(array.GetType().IsAListOfResources());
+            list.GetType().IsAListOfResources().ShouldBeTrue();
+            array.GetType().IsAListOfResources().ShouldBeTrue();
 
-            Assert.IsFalse(notAResourceList.GetType().IsAListOfResources());
-            Assert.IsFalse(notAResourceArray.GetType().IsAListOfResources());
+        	notAResourceList.GetType().IsAListOfResources().ShouldBeFalse();
+			notAResourceArray.GetType().IsAListOfResources().ShouldBeFalse();
         }
     }
 }

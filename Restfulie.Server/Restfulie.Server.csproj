@@ -110,6 +110,7 @@
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
+    <Compile Include="IBehaveAsCacheableResource.cs" />
     <Compile Include="IRelationsFactory.cs" />
     <Compile Include="Marshalling\Serializers\Json\JsonHypermediaInjector.cs" />
     <Compile Include="Marshalling\Serializers\Json\JsonSerializer.cs" />

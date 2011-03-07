@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System.Net;
+using System.Web;
+using System.Web.Mvc;
 using Restfulie.Server.Configuration;
 using Restfulie.Server.Http;
 using Restfulie.Server.MediaTypes;
@@ -42,8 +44,7 @@ namespace Restfulie.Server
 
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            filterContext.Result = choose.BasedOnMediaType(filterContext, mediaType, requestInfo);
-
+        	filterContext.Result = choose.BasedOnMediaType(filterContext, mediaType, requestInfo);
             base.OnActionExecuted(filterContext);
         }
 

@@ -6,14 +6,20 @@ namespace Restfulie.Server.Results
 {
     public class OK : RestfulieResult
     {
-        public OK() { }
-        public OK(object model) : base(model) { }
+    	private readonly object model;
+    	public OK() { }
+        public OK(object model) : base(model)
+        {
+        	this.model = model;
+        }
 
-        public override ResultDecorator GetDecorators()
+    	public override ResultDecorator GetDecorators()
         {
             return new StatusCode((int)HttpStatusCode.OK,
-                   new ContentType(MediaType.Synonyms.First(),
-                   new Content(BuildContent())));
+				new ETag(model,
+				new LastModified(model,
+				new ContentType(MediaType.Synonyms.First(),
+				new Content(BuildContent())))));
         }
     }
 }

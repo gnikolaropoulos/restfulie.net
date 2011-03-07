@@ -27,6 +27,11 @@ namespace Restfulie.Server.Extensions
             return (IBehaveAsResource) obj;
         }
 
+		public static IBehaveAsCacheableResource AsCacheableResource(this object obj)
+		{
+			return (IBehaveAsCacheableResource)obj;
+		}
+
         public static string AsXml(this object resource)
         {
             var stringWriter = new StringWriter();

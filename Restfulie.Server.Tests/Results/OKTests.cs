@@ -3,6 +3,7 @@ using NUnit.Framework;
 using Restfulie.Server.MediaTypes;
 using Restfulie.Server.Results;
 using Restfulie.Server.Results.Decorators;
+using Should;
 
 namespace Restfulie.Server.Tests.Results
 {
@@ -26,19 +27,25 @@ namespace Restfulie.Server.Tests.Results
         [Test]
         public void ShouldSetStatusCode()
         {
-            Assert.That(result.GetDecorators().Contains(typeof(StatusCode)));
+            result.GetDecorators().Contains(typeof(StatusCode)).ShouldBeTrue();
         }
 
         [Test]
         public void ShouldSetContent()
         {
-            Assert.That(result.GetDecorators().Contains(typeof(Content)));
+            result.GetDecorators().Contains(typeof(Content)).ShouldBeTrue();
         }
 
         [Test]
         public void ShouldSetContentType()
         {
-            Assert.That(result.GetDecorators().Contains(typeof(ContentType)));
+            result.GetDecorators().Contains(typeof(ContentType)).ShouldBeTrue();
         }
+
+		[Test]
+		public void ShouldSetETag()
+		{
+			result.GetDecorators().Contains(typeof(ETag)).ShouldBeTrue();
+		}
     }
 }
